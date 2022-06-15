@@ -66,7 +66,6 @@ char **var_addr;
 char *replacement = NULL, *temp, *var;
 var = malloc(len + 1);
 if (!var)
-{
 return (NULL);
 var[0] = '\0';
 _strncat(var, beginning, len);
@@ -104,12 +103,16 @@ for (j = 0; old_line[j]; j++)
 if (old_line[j] == '$' && old_line[j + 1] &&
 old_line[j + 1] != ' ')
 {
+if (old_line[j + 1] == '$')
+{
 replacement = get_pid();
 k = j + 2;
 }
 else if (old_line[j + 1] == '?')
 replacement = _itoa(*exe_ret);
 k = j + 2;
+else if (old_line[j + 1])
+{
 else if (old_line[j + 1])
 {
 /* extract the variable name to search for */
